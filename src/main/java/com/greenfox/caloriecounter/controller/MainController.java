@@ -20,7 +20,7 @@ public class MainController {
     return "index";
   }
 
-  @RequestMapping("addMeal")
+  @RequestMapping("/addMeal")
   public String addMeal(Model model){
     ArrayList<String> mealtype = new ArrayList<>(Arrays.asList("Breakfast", "Elevenses", "Lunch", "Snack", "Dinner",
         "Midnight Snack"));
