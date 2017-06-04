@@ -31,6 +31,13 @@ public class Meal {
   public Meal() {
   }
 
+  public Meal(Timestamp date, String type, String description, int calories) {
+    this.date = date;
+    this.type = type;
+    this.description = description;
+    this.calories = calories;
+  }
+
   @Override
   public String toString() {
     return "Meal{" +
