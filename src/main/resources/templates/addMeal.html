@@ -16,13 +16,15 @@
 <body>
 <h1>CalorieCounter</h1>
 
-<form method="post" action="/addMeal">
-  <input th:type="text" name="addMeal"/>
-  <select name="mealtype">
+<form method="post" action="/addMeal/added">
+  <select name="choosedType">
     <option  th:each="type : ${mealtype}" th:value="${type}" th:text="${type}"/>
   </select>
-  <input class="btn btn-warning" th:type="submit" value="ENTER"/>
+  <input th:type="text" name="newMeal"/>
+  <input th:type="number" name="newCalorie"/>
+  <input class="btn btn-info" th:type="submit" value="save"/>
 </form>
+<a class="btn btn-warning" style="text-decoration: none" th:href="@{/}">cancel</a>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"

@@ -30,4 +30,15 @@ public class Meal {
 
   public Meal() {
   }
+
+  @Override
+  public String toString() {
+    return "Meal{" +
+        "id=" + id +
+        ", date=" + date +
+        ", type='" + type + '\'' +
+        ", desciption='" + desciption + '\'' +
+        ", calories=" + calories +
+        '}';
+  }
 }
