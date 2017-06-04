@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Edit todo</title>
+</head>
+<body>
+<h1>Edit Todo</h1>
+<form method="post" th:action="@{/__${meal.id}__/edit/update}">
+    <select name="choosedType">
+      <option  th:each="type : ${mealtype}" th:value="${type}" th:text="${type}"/>
+    </select>
+    <input th:type="text" name="description" th:placeholder="${meal.description}"/>
+    <input th:type="number" name="calories" th:placeholder="${meal.calories}"/>
+    <input class="btn btn-info" th:type="submit" value="update"/>
+  </form>
+</body>
+</html>

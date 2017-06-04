@@ -26,6 +26,29 @@
 </form>
 <a class="btn btn-warning" style="text-decoration: none" th:href="@{/}">cancel</a>
 
+
+<table class="table table-striped">
+  <tr>
+    <th>Date</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Calories</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <tr th:each="entry : ${mealRepo}">
+    <div>
+      <td th:text="${entry.date}">1</td>
+      <td th:text="${entry.type}">2</td>
+      <td th:text="${entry.description}">3</td>
+      <td th:text="${entry.calories}">3</td>
+      <td><a class="btn btn-danger" style="text-decoration: none" th:href="@{/deleteMeal(delete=${entry.id})}">delete</a></td>
+      <td><a class="btn btn-info" style="text-decoration: none" th:href="@{/__${entry.id}__/edit}">edit</a></td>
+    </div>
+  </tr>
+</table>
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
