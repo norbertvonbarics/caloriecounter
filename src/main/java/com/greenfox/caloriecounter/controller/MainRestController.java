@@ -44,14 +44,13 @@ public class MainRestController {
 
   @RequestMapping(value = "/meal", method = RequestMethod.PUT)
   public Response updateMeal(@RequestBody Meal receivedMeal) {
-    Meal received = new Meal(receivedMeal.getDate(), receivedMeal.getType(),
-        receivedMeal.getDescription(), receivedMeal.getCalories());
-    Meal oldMeal = mealRepo.findOne(receivedMeal.getId());
+    Meal oldMeal =  mealRepo.findOne(receivedMeal.getId());
     oldMeal.setType(receivedMeal.getType());
     oldMeal.setCalories(receivedMeal.getCalories());
     oldMeal.setDescription(receivedMeal.getDescription());
+
     mealRepo.save(oldMeal);
-    
+
     return new Response("ok");
   }
 }
