@@ -31,8 +31,7 @@ public class Meal {
   public Meal() {
   }
 
-  public Meal(long id, Timestamp date, String type, String description, int calories) {
-    this.id = id;
+  public Meal(Timestamp date, String type, String description, int calories) {
     this.date = date;
     this.type = type;
     this.description = description;

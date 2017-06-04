@@ -54,7 +54,7 @@ public class MainRestControllerTest {
     @Test
     public void testAddMeal() throws Exception {
 
-      Meal testMeal = new Meal(667, new Timestamp(1322018752992L), "Lunch", "this is a test Meal", 2502);
+      Meal testMeal = new Meal(new Timestamp(1322018752992L), "Lunch", "this is a test Meal", 2502);
       ObjectMapper mapper = new ObjectMapper();
       String jsonInput = mapper.writeValueAsString(testMeal);
 
@@ -69,7 +69,7 @@ public class MainRestControllerTest {
   @Test
   public void testUpdateMeal() throws Exception {
 
-    Meal testMeal = new Meal(667, new Timestamp(1322018752992L), "Lunch", "this is a test Meal", 2502);
+    Meal testMeal = new Meal(new Timestamp(1322018752992L), "Lunch", "this is a test Meal", 2502);
     ObjectMapper mapper = new ObjectMapper();
     String jsonInput = mapper.writeValueAsString(testMeal);
 
@@ -85,7 +85,7 @@ public class MainRestControllerTest {
   @Test
   public void testDeleteMeal() throws Exception {
 
-    Meal testMeal = new Meal(667, new Timestamp(1322018752992L), "Lunch", "this is a test Meal", 2502);
+    Meal testMeal = new Meal(new Timestamp(1322018752992L), "Lunch", "this is a test Meal", 2502);
     ObjectMapper mapper = new ObjectMapper();
     String jsonInput = mapper.writeValueAsString(testMeal);
 

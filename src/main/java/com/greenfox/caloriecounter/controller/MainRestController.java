@@ -36,7 +36,7 @@ public class MainRestController {
 
   @RequestMapping(value = "/meal", method = RequestMethod.POST)
   public Response addMeal(@RequestBody Meal receivedMeal) {
-    Meal received = new Meal(receivedMeal.getId(), receivedMeal.getDate(), receivedMeal.getType(),
+    Meal received = new Meal(receivedMeal.getDate(), receivedMeal.getType(),
         receivedMeal.getDescription(), receivedMeal.getCalories());
     mealRepo.save(received);
 
