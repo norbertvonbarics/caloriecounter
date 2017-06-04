@@ -38,6 +38,10 @@ public class Meal {
     this.calories = calories;
   }
 
+  public Meal(long id) {
+    this.id = id;
+  }
+
 
 
   @Override

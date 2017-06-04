@@ -53,4 +53,11 @@ public class MainRestController {
 
     return new Response("ok");
   }
+
+  @RequestMapping(value = "/meal", method = RequestMethod.DELETE)
+  public Response deleteMeal(@RequestBody Meal receivedMeal) {
+    mealRepo.delete(receivedMeal.getId());
+
+    return new Response("ok");
+  }
 }
