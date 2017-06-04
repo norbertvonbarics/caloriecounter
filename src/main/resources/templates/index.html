@@ -19,7 +19,33 @@
 
 <h1>CalorieCounter</h1>
 
+
 <a class="btn btn-info" style="text-decoration: none" th:href="@{/addMeal}">Add or Edit meals</a>
+
+<table class="table table-striped">
+  <tr>
+    <th>Date</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Calories</th>
+    <th></th>
+  </tr>
+
+  <tr th:each="entry : ${mealRepo}">
+    <div>
+      <td th:text="${entry.date}">1</td>
+      <td th:text="${entry.type}">2</td>
+      <td th:text="${entry.description}">3</td>
+      <td th:text="${entry.calories}">3</td>
+    </div>
+  </tr>
+</table>
+
+<h2>Consumed Meals:</h2>
+<h3 th:text="${countMeals}"></h3>
+
+<h2>Consumed Calories:</h2>
+<h3 th:text="${countCalories}"></h3>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"

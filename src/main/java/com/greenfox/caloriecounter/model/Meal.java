@@ -18,13 +18,13 @@ public class Meal {
   long id;
   Timestamp date;
   String type;
-  String desciption;
+  String description;
   int calories;
 
-  public Meal(String type, String desciption, int calories) {
+  public Meal(String type, String description, int calories) {
     this.date = new Timestamp(System.currentTimeMillis());
     this.type = type;
-    this.desciption = desciption;
+    this.description = description;
     this.calories = calories;
   }
 
@@ -37,7 +37,7 @@ public class Meal {
         "id=" + id +
         ", date=" + date +
         ", type='" + type + '\'' +
-        ", desciption='" + desciption + '\'' +
+        ", description='" + description + '\'' +
         ", calories=" + calories +
         '}';
   }
