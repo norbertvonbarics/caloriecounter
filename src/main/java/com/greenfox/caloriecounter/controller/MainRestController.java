@@ -2,6 +2,7 @@ package com.greenfox.caloriecounter.controller;
 
 
 import com.greenfox.caloriecounter.model.Meal;
+import com.greenfox.caloriecounter.model.MealId;
 import com.greenfox.caloriecounter.model.Response;
 import com.greenfox.caloriecounter.repository.MealRepository;
 import java.util.ArrayList;
@@ -55,8 +56,8 @@ public class MainRestController {
   }
 
   @RequestMapping(value = "/meal", method = RequestMethod.DELETE)
-  public Response deleteMeal(@RequestBody Meal receivedMeal) {
-    mealRepo.delete(receivedMeal.getId());
+  public Response deleteMeal(@RequestBody MealId mealID) {
+    mealRepo.delete(mealID.getId());
 
     return new Response("ok");
   }
