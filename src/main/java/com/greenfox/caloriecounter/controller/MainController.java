@@ -21,6 +21,10 @@ public class MainController {
   @Autowired
   MealRepository mealRepo;
 
+  private ArrayList<String> mealtype = new ArrayList<>(
+      Arrays.asList("Breakfast", "Elevenses", "Lunch", "Snack", "Dinner",
+          "Midnight Snack"));
+
 
   @RequestMapping("/")
   public String mainpage(Model model) {
@@ -39,9 +43,6 @@ public class MainController {
 
   @RequestMapping("/addMeal")
   public String addMeal(Model model) {
-    ArrayList<String> mealtype = new ArrayList<>(
-        Arrays.asList("Breakfast", "Elevenses", "Lunch", "Snack", "Dinner",
-            "Midnight Snack"));
     model.addAttribute("mealtype", mealtype);
     model.addAttribute("mealRepo", mealRepo.findAll());
     return "addMeal";
@@ -49,27 +50,24 @@ public class MainController {
 
   @RequestMapping(value = "/addMeal/added")
   public String addTodo(@RequestParam(name = "newMeal") String newMeal,
-      @RequestParam(name = "newCalorie") String newCalorie,
+      @RequestParam(name = "newCalorie") int newCalorie,
       @RequestParam(name = "choosedType") String mealtype) {
-    int cal = Integer.parseInt(newCalorie);
-    mealRepo.save(new Meal(mealtype, newMeal, cal));
+    mealRepo.save(new Meal(mealtype, newMeal, newCalorie));
     return "redirect:/";
   }
 
   @RequestMapping(value = "/deleteMeal")
-  public String deleteTodo(@RequestParam(name = "delete") long id) {
+  public String deleteTodo(@RequestParam(name = "delete") Long id) {
     mealRepo.delete(id);
     return "redirect:/";
   }
 
   @RequestMapping(value = "/{id}/edit")
   public String edit(Model model, @PathVariable("id") Long id) {
-    ArrayList<String> mealtype = new ArrayList<>(
-        Arrays.asList("Breakfast", "Elevenses", "Lunch", "Snack", "Dinner",
-            "Midnight Snack"));
-    model.addAttribute("mealtype", mealtype);
 
+    model.addAttribute("mealtype", mealtype);
     model.addAttribute("meal", mealRepo.findOne(id));
+
     return "editMeal";
   }
 
