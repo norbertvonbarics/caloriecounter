@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -32,12 +33,25 @@ public class MainRestController {
     return consumedCalories;
   }
 
-  @RequestMapping("/meal")
+  @RequestMapping(value = "/meal", method = RequestMethod.POST)
   public Response addMeal(@RequestBody Meal receivedMeal) {
     Meal received = new Meal(receivedMeal.getDate(), receivedMeal.getType(),
         receivedMeal.getDescription(), receivedMeal.getCalories());
     mealRepo.save(received);
 
+    return new Response("ok");
+  }
+
+  @RequestMapping(value = "/meal", method = RequestMethod.PUT)
+  public Response updateMeal(@RequestBody Meal receivedMeal) {
+    Meal received = new Meal(receivedMeal.getDate(), receivedMeal.getType(),
+        receivedMeal.getDescription(), receivedMeal.getCalories());
+    Meal oldMeal = mealRepo.findOne(receivedMeal.getId());
+    oldMeal.setType(receivedMeal.getType());
+    oldMeal.setCalories(receivedMeal.getCalories());
+    oldMeal.setDescription(receivedMeal.getDescription());
+    mealRepo.save(oldMeal);
+    
     return new Response("ok");
   }
 }

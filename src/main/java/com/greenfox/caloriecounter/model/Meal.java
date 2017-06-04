@@ -38,6 +38,8 @@ public class Meal {
     this.calories = calories;
   }
 
+
+
   @Override
   public String toString() {
     return "Meal{" +
