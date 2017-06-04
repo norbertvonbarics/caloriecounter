@@ -25,7 +25,7 @@ public class Meal {
 
   public Meal(String type, String description, int calories) {
     Date newDate = new Date();
-    this.date = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss").format(newDate);
+    this.date = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss").format(newDate);
     this.type = type;
     this.description = description;
     this.calories = calories;
