@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
-  <title>Edit todo</title>
+  <title>Edit Meal</title>
 </head>
 <body>
-<h1>Edit Todo</h1>
+<h1>Edit Meal</h1>
 <form method="post" th:action="@{/__${meal.id}__/edit/update}">
     <select name="choosedType">
       <option  th:each="type : ${mealtype}" th:value="${type}" th:text="${type}"/>
