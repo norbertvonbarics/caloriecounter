@@ -31,18 +31,13 @@ public class Meal {
   public Meal() {
   }
 
-  public Meal(Timestamp date, String type, String description, int calories) {
+  public Meal(long id, Timestamp date, String type, String description, int calories) {
+    this.id = id;
     this.date = date;
     this.type = type;
     this.description = description;
     this.calories = calories;
   }
-
-  public Meal(long id) {
-    this.id = id;
-  }
-
-
 
   @Override
   public String toString() {
