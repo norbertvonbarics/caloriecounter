@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 import com.greenfox.caloriecounter.CaloriecounterApplication;
 import com.greenfox.caloriecounter.model.Meal;
+import com.greenfox.caloriecounter.model.MealId;
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import org.junit.Before;
@@ -69,7 +70,7 @@ public class MainRestControllerTest {
   @Test
   public void testUpdateMeal() throws Exception {
 
-    Meal testMeal = new Meal(new Timestamp(1322018752992L), "Lunch", "this is a test Meal", 2502);
+    Meal testMeal = new Meal(5, new Timestamp(1322018752992L), "Lunch", "this is a test Meal", 2502);
     ObjectMapper mapper = new ObjectMapper();
     String jsonInput = mapper.writeValueAsString(testMeal);
 
@@ -85,9 +86,9 @@ public class MainRestControllerTest {
   @Test
   public void testDeleteMeal() throws Exception {
 
-    Meal testMeal = new Meal(new Timestamp(1322018752992L), "Lunch", "this is a test Meal", 2502);
+    MealId testMealId = new MealId(5);
     ObjectMapper mapper = new ObjectMapper();
-    String jsonInput = mapper.writeValueAsString(testMeal);
+    String jsonInput = mapper.writeValueAsString(testMealId);
 
     mockMvc.perform(put("/meal")
         .contentType(contentType)
@@ -96,25 +97,4 @@ public class MainRestControllerTest {
         .andExpect(content().contentType(contentType))
         .andExpect(jsonPath("$.status", is("ok")));
   }
-
-  @Test
-  public void getMeals() throws Exception {
-  }
-
-  @Test
-  public void getStats() throws Exception {
-  }
-
-  @Test
-  public void addMeal() throws Exception {
-  }
-
-  @Test
-  public void updateMeal() throws Exception {
-  }
-
-  @Test
-  public void deleteMeal() throws Exception {
-  }
-
 }

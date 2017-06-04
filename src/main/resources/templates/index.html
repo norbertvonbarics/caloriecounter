@@ -29,6 +29,7 @@
     <th>Description</th>
     <th>Calories</th>
     <th></th>
+    <th></th>
   </tr>
 
   <tr th:each="entry : ${mealRepo}">
@@ -36,7 +37,9 @@
       <td th:text="${entry.date}">1</td>
       <td th:text="${entry.type}">2</td>
       <td th:text="${entry.description}">3</td>
-      <td th:text="${entry.calories}">3</td>
+      <td th:text="${entry.calories}">4</td>
+      <td><a class="btn btn-danger" style="text-decoration: none" th:href="@{/deleteMeal(delete=${entry.id})}">delete</a></td>
+      <td><a class="btn btn-info" style="text-decoration: none" th:href="@{/__${entry.id}__/edit}">edit</a></td>
     </div>
   </tr>
 </table>
