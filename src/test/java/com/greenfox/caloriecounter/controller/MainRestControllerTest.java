@@ -1,9 +1,11 @@
 package com.greenfox.caloriecounter.controller;
 
 import static org.junit.Assert.*;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import com.greenfox.caloriecounter.CaloriecounterApplication;
@@ -37,40 +39,39 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 public class MainRestControllerTest {
 
 
+  private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+      MediaType.APPLICATION_JSON.getSubtype(),
+      Charset.forName("utf8"));
 
-    private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-        MediaType.APPLICATION_JSON.getSubtype(),
-        Charset.forName("utf8"));
+  private MockMvc mockMvc;
 
-    private MockMvc mockMvc;
+  @Autowired
+  private WebApplicationContext webApplicationContext;
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
+  @Before
+  public void setup() throws Exception {
+    this.mockMvc = webAppContextSetup(webApplicationContext).build();
+  }
 
-    @Before
-    public void setup() throws Exception {
-      this.mockMvc = webAppContextSetup(webApplicationContext).build();
-    }
+  @Test
+  public void testAddMeal() throws Exception {
 
-    @Test
-    public void testAddMeal() throws Exception {
+    Meal testMeal = new Meal("2011-11-11", "Lunch", "this is a test Meal", 2502);
+    ObjectMapper mapper = new ObjectMapper();
+    String jsonInput = mapper.writeValueAsString(testMeal);
 
-      Meal testMeal = new Meal("2011-11-11", "Lunch", "this is a test Meal", 2502);
-      ObjectMapper mapper = new ObjectMapper();
-      String jsonInput = mapper.writeValueAsString(testMeal);
-
-      mockMvc.perform(post("/meal")
-          .contentType(contentType)
-          .content(jsonInput))
-          .andExpect(status().isOk())
-          .andExpect(content().contentType(contentType))
-          .andExpect(jsonPath("$.status", is("ok")));
-    }
+    mockMvc.perform(post("/meal")
+        .contentType(contentType)
+        .content(jsonInput))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(contentType))
+        .andExpect(jsonPath("$.status", is("ok")));
+  }
 
   @Test
   public void testUpdateMeal() throws Exception {
 
-    Meal testMeal = new Meal(2, "2011-11-11", "Lunch", "this is a test Meal", 2502);
+    Meal testMeal = new Meal(7, "2011-11-11", "Lunch", "this is a test Meal", 2502);
     ObjectMapper mapper = new ObjectMapper();
     String jsonInput = mapper.writeValueAsString(testMeal);
 
@@ -86,7 +87,7 @@ public class MainRestControllerTest {
   @Test
   public void testDeleteMeal() throws Exception {
 
-    MealId testMealId = new MealId(2);
+    MealId testMealId = new MealId(7);
     ObjectMapper mapper = new ObjectMapper();
     String jsonInput = mapper.writeValueAsString(testMealId);
     System.out.println(jsonInput);
