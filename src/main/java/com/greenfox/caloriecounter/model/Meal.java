@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,9 +20,17 @@ public class Meal {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   long id;
+
+  @NotNull
   String date;
+
+  @NotNull
   String type;
+
+  @NotNull
   String description;
+
+  @NotNull
   int calories;
 
   public Meal(String type, String description, int calories) {

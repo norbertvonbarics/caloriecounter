@@ -1,5 +1,6 @@
 package com.greenfox.caloriecounter.controller;
 
+import com.greenfox.caloriecounter.model.ErrorMessage;
 import com.greenfox.caloriecounter.model.Meal;
 import com.greenfox.caloriecounter.repository.MealRepository;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +32,7 @@ public class MainController {
   public String mainpage(Model model) {
     Iterable<Meal> mealIterable = mealRepo.findAll();
     int consumedCalories = 0;
-    for(int i = 0; i  < mealRepo.count(); i++){
+    for (int i = 0; i < mealRepo.count(); i++) {
       consumedCalories += ((ArrayList<Meal>) mealIterable).get(i).getCalories();
     }
 
@@ -72,7 +74,8 @@ public class MainController {
   }
 
   @RequestMapping(value = "/{id}/edit/update")
-  public String updated(@PathVariable("id") Long id, @RequestParam("description") String description,
+  public String updated(@PathVariable("id") Long id,
+      @RequestParam("description") String description,
       @RequestParam(value = "calories") int calories,
       @RequestParam(value = "choosedType") String choosedType) {
 
@@ -84,5 +87,11 @@ public class MainController {
     mealRepo.save(meal);
 
     return "redirect:/";
+  }
+
+  @ExceptionHandler(Exception.class)
+  public ErrorMessage parameterMissing(Exception e) {
+    System.err.println(e.getMessage());
+    return new ErrorMessage("shit just hits the fan");
   }
 }

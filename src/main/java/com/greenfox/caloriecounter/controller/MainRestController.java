@@ -1,15 +1,23 @@
 package com.greenfox.caloriecounter.controller;
 
 
+import com.greenfox.caloriecounter.model.ErrorMessage;
 import com.greenfox.caloriecounter.model.Meal;
 import com.greenfox.caloriecounter.model.MealId;
 import com.greenfox.caloriecounter.model.Response;
 import com.greenfox.caloriecounter.repository.MealRepository;
 import java.util.ArrayList;
+import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -56,9 +64,20 @@ public class MainRestController {
   }
 
   @RequestMapping(value = "/meal", method = RequestMethod.DELETE)
-  public Response deleteMeal(@RequestBody MealId mealID) {
+  public Response deleteMeal(@RequestBody @Valid MealId mealID) {
     mealRepo.delete(mealID.getId());
 
     return new Response("ok");
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  @ResponseStatus(code = HttpStatus.I_AM_A_TEAPOT)
+  public ErrorMessage MissingBodyParamter(MethodArgumentNotValidException e) {
+    String temp = "Missing field(s): ";
+    List<FieldError> errors = e.getBindingResult().getFieldErrors();
+    for (FieldError error : errors) {
+      temp = temp.concat(error.getField() + ", ");
+    }
+    return new ErrorMessage(temp);
   }
 }
