@@ -43,7 +43,7 @@ public class MainRestController {
   }
 
   @RequestMapping(value = "/meal", method = RequestMethod.POST)
-  public Response addMeal(@RequestBody Meal receivedMeal) {
+  public Response addMeal(@RequestBody @Valid Meal receivedMeal) {
     Meal received = new Meal(receivedMeal.getDate(), receivedMeal.getType(),
         receivedMeal.getDescription(), receivedMeal.getCalories());
     mealRepo.save(received);
@@ -52,7 +52,7 @@ public class MainRestController {
   }
 
   @RequestMapping(value = "/meal", method = RequestMethod.PUT)
-  public Response updateMeal(@RequestBody Meal receivedMeal) {
+  public Response updateMeal(@RequestBody @Valid Meal receivedMeal) {
     Meal oldMeal =  mealRepo.findOne(receivedMeal.getId());
     oldMeal.setType(receivedMeal.getType());
     oldMeal.setCalories(receivedMeal.getCalories());
@@ -70,7 +70,7 @@ public class MainRestController {
     return new Response("ok");
   }
 
-  @ExceptionHandler(Exception.class)
+  @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(code = HttpStatus.I_AM_A_TEAPOT)
   public ErrorMessage MissingBodyParamter(MethodArgumentNotValidException e) {
     String temp = "Missing field(s): ";
