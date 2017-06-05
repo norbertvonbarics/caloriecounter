@@ -70,7 +70,7 @@ public class MainRestController {
     return new Response("ok");
   }
 
-  @ExceptionHandler(MethodArgumentNotValidException.class)
+  @ExceptionHandler(Exception.class)
   @ResponseStatus(code = HttpStatus.I_AM_A_TEAPOT)
   public ErrorMessage MissingBodyParamter(MethodArgumentNotValidException e) {
     String temp = "Missing field(s): ";
