@@ -70,7 +70,7 @@ public class MainRestControllerTest {
   @Test
   public void testUpdateMeal() throws Exception {
 
-    Meal testMeal = new Meal(5, "2011-11-11", "Lunch", "this is a test Meal", 2502);
+    Meal testMeal = new Meal(2, "2011-11-11", "Lunch", "this is a test Meal", 2502);
     ObjectMapper mapper = new ObjectMapper();
     String jsonInput = mapper.writeValueAsString(testMeal);
 
@@ -86,15 +86,31 @@ public class MainRestControllerTest {
   @Test
   public void testDeleteMeal() throws Exception {
 
-    MealId testMealId = new MealId(5);
+    MealId testMealId = new MealId(2);
     ObjectMapper mapper = new ObjectMapper();
     String jsonInput = mapper.writeValueAsString(testMealId);
+    System.out.println(jsonInput);
 
-    mockMvc.perform(put("/meal")
+    mockMvc.perform(delete("/meal")
         .contentType(contentType)
         .content(jsonInput))
         .andExpect(status().isOk())
         .andExpect(content().contentType(contentType))
         .andExpect(jsonPath("$.status", is("ok")));
+  }
+
+  @Test
+  public void testAddMeal_withShittyInput() throws Exception {
+
+    mockMvc.perform(post("/meal")
+        .contentType(contentType)
+        .content("{\n"
+            + "    \"date\": 1496585531246,\n"
+            + "    \"description\": \"this is a big happy meal, hope with the good id\",\n"
+            + "    \"calories\": 2\n"
+            + "  }"))
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().contentType(contentType))
+        .andExpect(jsonPath("$.error", is("Missing field(s): type, ")));
   }
 }
